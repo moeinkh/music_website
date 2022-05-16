@@ -1,3 +1,64 @@
 from django.contrib import admin
+from .models import Date, Category, Singer, Album, Song
 
 # Register your models here.
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'created'
+    )
+
+    prepopulated_fields = {'title': ('slug',)}
+
+class SingerAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'created',
+    )
+
+    list_filter = (
+        'name',
+    )
+
+    search_fields = (
+        'name',
+    )
+
+    prepopulated_fields = {'name': ('slug',)}
+
+class AlbumAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'singer_album',
+        'created',
+    )
+    list_filter = (
+        'title',
+        'singer_album',
+    )
+
+    prepopulated_fields = {'title': ('slug',)}
+
+class SongAdmin(admin.ModelAdmin):
+    list_display = (
+        'title',
+        'created',
+        'get_singer',
+    )
+    list_filter = (
+        'title',
+    )
+    search_fields = (
+        'title',
+        'get_singer',
+    )
+
+    filter_horizontal = (
+        'singer_song',
+    )
+    prepopulated_fields = {'title': ('slug',)}
+
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Singer, SingerAdmin)
+admin.site.register(Album, AlbumAdmin)
+admin.site.register(Song, SongAdmin)

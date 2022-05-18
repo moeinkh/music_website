@@ -25,6 +25,7 @@ class Category(Date):
     slug = models.SlugField(
         'اسلاگ',
         max_length=64,
+        allow_unicode=True,
         )   
 
     def __str__(self):
@@ -44,6 +45,7 @@ class Singer(Date):
     slug = models.SlugField(
         'اسلاگ',
         max_length=128,
+        allow_unicode=True,
         )
 
     def __str__(self):
@@ -62,6 +64,7 @@ class Album(Date):
     slug = models.SlugField(
         'اسلاگ',
         max_length=128,
+        allow_unicode=True,
         )    
     singer_album = models.ForeignKey(
         Singer, 
@@ -104,7 +107,11 @@ class Song(Date):
     slug = models.SlugField(
         'اسلاگ',
         max_length=64,
-        )    
+        allow_unicode=True,
+        )   
+    description = models.TextField(
+        'توضیحات',
+        )
     text = models.TextField(
         'متن آهنگ',
         null=True,
@@ -115,8 +122,9 @@ class Song(Date):
         upload_to='poster_song/',
         )
 
+    @property
     def get_singer(self):
-        return '\n'.join([i.nama for i in self.singer_song.all()])    
+        return '\n'.join([i.name for i in self.singer_song.all()])    
 
     def __str__(self):
         return self.title    

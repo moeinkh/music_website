@@ -8,7 +8,7 @@ class CategoryAdmin(admin.ModelAdmin):
         'created'
     )
 
-    prepopulated_fields = {'title': ('slug',)}
+    prepopulated_fields = {'slug': ('title',)}
 
 class SingerAdmin(admin.ModelAdmin):
     list_display = (
@@ -24,7 +24,7 @@ class SingerAdmin(admin.ModelAdmin):
         'name',
     )
 
-    prepopulated_fields = {'name': ('slug',)}
+    prepopulated_fields = {'slug': ('name',)}
 
 class AlbumAdmin(admin.ModelAdmin):
     list_display = (
@@ -37,7 +37,7 @@ class AlbumAdmin(admin.ModelAdmin):
         'singer_album',
     )
 
-    prepopulated_fields = {'title': ('slug',)}
+    prepopulated_fields = {'slug': ('title',)}
 
 class SongAdmin(admin.ModelAdmin):
     list_display = (
@@ -56,7 +56,7 @@ class SongAdmin(admin.ModelAdmin):
     filter_horizontal = (
         'singer_song',
     )
-    prepopulated_fields = {'title': ('slug',)}
+    prepopulated_fields = {'slug': ('title',)}
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Singer, SingerAdmin)

@@ -95,6 +95,12 @@ class Song(Date):
         blank=True,
         verbose_name='آلبوم',
         )
+    category_song = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='category_song',
+        verbose_name='دسته بندی',
+        )
     singer_song = models.ManyToManyField(
         Singer,
         related_name='song_singer',

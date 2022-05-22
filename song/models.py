@@ -134,3 +134,15 @@ class Song(Date):
 
     def __str__(self):
         return self.title    
+
+class Contact(Date):
+    class Meta:
+        verbose_name = 'پیام'        
+        verbose_name_plural = 'پیام ها'
+
+    name = models.CharField('نام و نام خانوادگی', max_length=128)
+    email = models.EmailField('ایمیل')
+    text = models.TextField('متن پیام')
+
+    def __str__(self):
+        return self.name          

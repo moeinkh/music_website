@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from django.core.paginator import Paginator
+from .forms import ContactForm
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -30,7 +32,20 @@ def details_song(request, slug):
     })
 
 def about_us(request):
-    return render(request, 'song/about_us.html',)
+    return render(request, 'song/about_us.html')
+
+def contact_us(request):
+    if request.method == 'POST':
+        url = request.META.get('HTTP_REFERER')
+        print(url)
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'پیام شما با موفقیت ثبت شد.')
+            return redirect(url)
+    else:
+        form = ContactForm()     
+    return render(request, 'song/contact_us.html')
 
 def singers(request, slug):
     singer = Song.objects.filter(singer_song__slug=slug)

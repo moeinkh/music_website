@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Date, Category, Singer, Album, Song
+from .models import Date, Category, Singer, Album, Song, Contact
 
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
@@ -58,7 +58,11 @@ class SongAdmin(admin.ModelAdmin):
     )
     prepopulated_fields = {'slug': ('title',)}
 
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('name', 'created')
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Singer, SingerAdmin)
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Song, SongAdmin)
+admin.site.register(Contact, ContactAdmin)

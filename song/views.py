@@ -3,10 +3,15 @@ from .models import *
 from django.core.paginator import Paginator
 from .forms import ContactForm, CommentForm
 from django.contrib import messages
+from django.db.models import Q
 
 # Create your views here.
-def home(request):
+def home(request, slug=None):
     songs = Song.objects.all().order_by('-created')
+    search = request.GET.get('search')
+    if search:
+        songs = songs.filter(Q(text__contains=search) | Q(title__contains=search) | Q(singer_song__name__contains=search))
+
     # start pagination config
     paginator = Paginator(songs, 15)
     page_number = request.GET.get('page')

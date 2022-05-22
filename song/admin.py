@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Date, Category, Singer, Album, Song, Contact
+from .models import Date, Category, Singer, Album, Song, Contact, Comment
 
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
@@ -61,8 +61,12 @@ class SongAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('name', 'created')
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'song_comment','created', 'active')
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Singer, SingerAdmin)
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Contact, ContactAdmin)
+admin.site.register(Comment, CommentAdmin)

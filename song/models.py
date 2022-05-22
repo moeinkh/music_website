@@ -140,9 +140,45 @@ class Contact(Date):
         verbose_name = 'پیام'        
         verbose_name_plural = 'پیام ها'
 
-    name = models.CharField('نام و نام خانوادگی', max_length=128)
-    email = models.EmailField('ایمیل')
-    text = models.TextField('متن پیام')
+    name = models.CharField(
+        'نام و نام خانوادگی',
+        max_length=128,
+        )
+    email = models.EmailField(
+        'ایمیل',
+        )
+    text = models.TextField(
+        'متن پیام',
+        )
 
     def __str__(self):
-        return self.name          
+        return self.name
+
+class Comment(Date):    
+    class Meta:
+        verbose_name = 'نظر'        
+        verbose_name_plural = 'نظرات'
+
+    song_comment = models.ForeignKey(
+        Song,
+        related_name='comment_song',
+        on_delete=models.CASCADE,
+        verbose_name='آهنگ'
+        )    
+    name = models.CharField(
+        'نام و نام خانوادگی',
+        max_length=128,
+        )
+    email = models.EmailField(
+        'ایمیل',
+        )
+    text = models.TextField(
+        'متن نظر',
+        ) 
+    active = models.BooleanField(
+        'فعال؟',
+        default=True, 
+        )   
+
+    def __str__(self):
+        return self.name

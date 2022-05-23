@@ -6,11 +6,17 @@ from django.contrib import messages
 from django.db.models import Q
 
 # Create your views here.
-def home(request, slug=None):
-    songs = Song.objects.all().order_by('-created')
+def search(request):
     search = request.GET.get('search')
     if search:
-        songs = songs.filter(Q(text__contains=search) | Q(title__contains=search) | Q(singer_song__name__contains=search))
+        songs = Song.objects.filter(Q(text__contains=search) | Q(title__contains=search) | Q(singer_song__name__contains=search))
+
+    return render(request, 'song/search.html', {
+        'songs': songs
+    })  
+
+def home(request):
+    songs = Song.objects.all().order_by('-created')
 
     # start pagination config
     paginator = Paginator(songs, 15)
